@@ -1,0 +1,494 @@
+/* The Sixele design system, for the web.
+ *
+ * Every value here comes from the app: colours from lib/theme/app_colors.dart,
+ * spacing and sizes from lib/theme/tokens.dart, and the type scale from
+ * openspec/specs/design-language/spec.md. If a token changes there, change it
+ * here. Square corners, the 6px grid, IBM Plex, no pink, plum for black.
+ */
+
+/* --- Type: IBM Plex, shipped with the site. Nothing calls a font server. --- */
+
+@font-face { font-family: "IBM Plex Serif"; font-weight: 500; font-display: swap; src: url("fonts/IBMPlexSerif-Medium.ttf") format("truetype"); }
+@font-face { font-family: "IBM Plex Serif"; font-weight: 600; font-display: swap; src: url("fonts/IBMPlexSerif-SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-display: swap; src: url("fonts/IBMPlexSans-Regular.ttf") format("truetype"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-style: italic; font-display: swap; src: url("fonts/IBMPlexSans-Italic.ttf") format("truetype"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 500; font-display: swap; src: url("fonts/IBMPlexSans-Medium.ttf") format("truetype"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-display: swap; src: url("fonts/IBMPlexSans-SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-display: swap; src: url("fonts/IBMPlexMono-Regular.ttf") format("truetype"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 500; font-display: swap; src: url("fonts/IBMPlexMono-Medium.ttf") format("truetype"); }
+
+/* --- Tokens --- */
+
+:root {
+  color-scheme: light dark;
+
+  /* Semantic colours, light (DL-09). */
+  --surface: #f1ecef;
+  --surface-raised: #ffffff;
+  --surface-well: #e1dbe0;
+  --ink: #2e1d38;
+  --ink-muted: #594b60;
+  --ink-subtle: #65576b;
+  --accent: #7a2740;
+  --on-accent: #f1ecef;
+  --accent-edge: #7a2740;
+  --accent-text: #7a2740;
+  --accent-quiet: #e1dbe0;
+  --affirm: #1f5d59;
+  --affirm-text: #1f5d59;
+  --affirm-quiet: #d8dbdd;
+  --attention: #9e5141;
+  --attention-text: #9e5141;
+  --attention-quiet: #e1dbe0;
+  --line: #74687a;
+  --line-subtle: #c6bec7;
+  --focus: #7a2740;
+  --shadow: rgba(46, 29, 56, 0.2);
+
+  /* The 6px grid (DL-02). */
+  --s6: 6px;
+  --s12: 12px;
+  --s18: 18px;
+  --s24: 24px;
+  --s30: 30px;
+  --s36: 36px;
+  --s48: 48px;
+  --s60: 60px;
+  --s72: 72px;
+  --s96: 96px;
+
+  /* Widths (DL-04). The page holds two reading columns side by side. */
+  --reading: 576px;
+  --page: 1152px;
+
+  --serif: "IBM Plex Serif", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* Semantic colours, dark. Also what an inverted block uses on a light page. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #2e1d38;
+    --surface-raised: #3c2b45;
+    --surface-well: #211528;
+    --ink: #f1ecef;
+    --ink-muted: #c2bac3;
+    --ink-subtle: #afa6b1;
+    --accent-edge: #f1ecef;
+    --accent-text: #f1ecef;
+    --accent-quiet: #45203a;
+    --affirm: #3cb4ac;
+    --affirm-text: #3cb4ac;
+    --affirm-quiet: #293042;
+    --attention: #cc7866;
+    --attention-text: #cc7866;
+    --attention-quiet: #502d3b;
+    --line: #8c8090;
+    --line-subtle: #55465d;
+    --focus: #f1ecef;
+    --shadow: rgba(21, 12, 28, 0.5);
+  }
+}
+
+/* --- Base --- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--s96); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font: 400 16px/24px var(--sans);
+  -webkit-font-smoothing: antialiased;
+  /* Room for Leave now, so it never covers the last line. */
+  padding-bottom: var(--s96);
+}
+
+img { display: block; max-width: 100%; }
+p, h1, h2, h3, ul, figure { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: var(--accent-text); text-underline-offset: 3px; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.wrap {
+  max-width: calc(var(--page) + 2 * var(--s24));
+  margin: 0 auto;
+  padding: 0 var(--s24);
+}
+
+/* --- Type scale (DL-06) --- */
+
+.display {
+  font: 500 42px/48px var(--serif);
+  letter-spacing: -0.01em;
+}
+.headline { font: 600 24px/30px var(--serif); }
+.title { font: 600 20px/24px var(--serif); }
+.title-sm { font: 600 16px/24px var(--serif); }
+.section-title { font: 500 30px/36px var(--serif); }
+.reading { font: 400 18px/30px var(--sans); }
+.quote { font: italic 400 18px/30px var(--sans); }
+.small { font: 400 14px/18px var(--sans); color: var(--ink-muted); }
+.status {
+  font: 600 13px/18px var(--sans);
+  letter-spacing: 0.01em;
+  color: var(--ink-muted);
+}
+.note { font: 400 13px/18px var(--mono); color: var(--ink-muted); }
+.fact { font: 500 16px/24px var(--mono); white-space: nowrap; }
+.muted { color: var(--ink-muted); }
+
+@media (max-width: 599px) {
+  .display { font-size: 36px; line-height: 42px; }
+}
+
+/* --- Brand stones (DL-12, DL-13) ---
+ * The marks are flat pictures with mist or plum baked in, so they only sit
+ * directly on the page, and they are sized by the stone: the stone spans 76%
+ * of the logo's frame and 38% of the mark's. The box clips a fifth wider than
+ * the stone; the rest of the picture is exactly the page colour. */
+
+.stone {
+  --stone: 24px;
+  --span: 0.38;
+  position: relative;
+  flex: none;
+  display: block;
+  width: var(--stone);
+  height: var(--stone);
+}
+.stone img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--stone) / var(--span));
+  max-width: none;
+  transform: translate(-50%, -50%);
+  clip-path: inset(calc(50% - var(--stone) * 0.6));
+}
+.stone-36 { --stone: 36px; }
+.stone-logo { --stone: 48px; --span: 0.76; }
+.stone-bullet { --stone: 12px; --span: 0.19; }
+
+.pebble { flex: none; width: 64px; height: 64px; }
+.pebble-40 { width: 40px; height: 40px; }
+
+/* --- Header --- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line-subtle);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--s24);
+  min-height: var(--s72);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s12);
+  color: var(--ink);
+  text-decoration: none;
+  font: 600 24px/30px var(--serif);
+}
+.site-nav { margin-left: auto; display: flex; flex-wrap: wrap; }
+.site-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 var(--s12);
+  color: var(--ink-muted);
+  text-decoration: none;
+  font: 600 14px/18px var(--sans);
+  letter-spacing: 0.01em;
+}
+.site-nav a:hover { color: var(--ink); text-decoration: underline; }
+@media (max-width: 899px) {
+  .site-nav { display: none; }
+}
+
+/* --- Buttons (DL-03, DL-11) --- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--s24);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: 600 16px/24px var(--sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 120ms ease-out;
+}
+.button:hover { opacity: 0.85; }
+.button-primary {
+  min-height: 60px;
+  padding: 0 var(--s30);
+  background: var(--accent);
+  border-color: var(--accent-edge);
+  color: var(--on-accent);
+}
+
+/* --- Notices (DL-16): square, edged in their tone, in the flow. --- */
+
+.notice {
+  display: flex;
+  gap: var(--s12);
+  padding: var(--s18);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  max-width: var(--reading);
+}
+.notice svg { flex: none; width: 24px; height: 24px; color: var(--ink-muted); }
+.notice .status { display: block; padding-top: 3px; }
+.notice p { margin-top: var(--s6); }
+.notice-affirm { background: var(--affirm-quiet); border-color: var(--affirm); }
+.notice-affirm svg, .notice-affirm .status { color: var(--affirm-text); }
+.notice-attention {
+  background: var(--attention-quiet);
+  border: 2px solid var(--attention);
+}
+.notice-attention svg { color: var(--attention-text); }
+.notice-attention .status { color: var(--ink); }
+
+.line-icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+/* --- Hero --- */
+
+.hero { padding: var(--s72) 0 var(--s48); }
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s48);
+  align-items: start;
+}
+.hero-copy { max-width: var(--reading); }
+.hero-copy .reading { margin-top: var(--s24); color: var(--ink-muted); }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s12);
+  margin-top: var(--s36);
+}
+.hero .notice { margin-top: var(--s36); }
+.hero-shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 288px));
+  gap: var(--s24);
+  justify-content: end;
+}
+.hero-shots .shot:nth-child(2) { margin-top: var(--s48); }
+
+/* --- Sections --- */
+
+.section { padding: var(--s48) 0; }
+.section + .section { border-top: 1px solid var(--line-subtle); }
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s18);
+  margin-bottom: var(--s12);
+}
+.section-lede { max-width: var(--reading); color: var(--ink-muted); }
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s48);
+  align-items: start;
+  margin-top: var(--s48);
+}
+.feature + .feature { margin-top: var(--s72); }
+.feature-copy { max-width: var(--reading); }
+.feature-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s18);
+  margin-bottom: var(--s18);
+}
+.feature-copy p + p { margin-top: var(--s18); }
+.feature-copy .quote {
+  margin-top: var(--s24);
+  padding-left: var(--s18);
+  border-left: 2px solid var(--line);
+}
+.feature-shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 288px));
+  gap: var(--s24);
+  justify-content: end;
+}
+.feature-flip .feature-copy { order: 2; }
+.feature-flip .feature-shots { justify-content: start; }
+
+/* Stone-bulleted lines (DL-13b): 12 stone, 6 down, 12 to the text. */
+.bullets { margin-top: var(--s18); }
+.bullets li { display: flex; gap: var(--s12); }
+.bullets li + li { margin-top: var(--s12); }
+.bullets .stone { margin-top: var(--s6); }
+
+/* --- Screenshots ---
+ * A square window the size of the phone the library captures (390 x 844).
+ * Library screenshots are full-length scrolls, so the window shows one
+ * phone's worth; --shot-y (0% = top, 100% = bottom) picks which part.
+ * New captures with the same file name drop straight in. */
+
+.shot { min-width: 0; }
+.shot-window {
+  position: relative;
+  aspect-ratio: 390 / 844;
+  overflow: hidden;
+  background: var(--surface-well);
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 0 var(--shadow);
+}
+.shot-window img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center var(--shot-y, 0%);
+}
+.shot figcaption { margin-top: var(--s18); }
+
+/* --- Cards: raised, hairline edge, no shadow (DL-01a). --- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s24);
+  margin-top: var(--s36);
+}
+.card {
+  padding: var(--s24);
+  background: var(--surface-raised);
+  border: 1px solid var(--line-subtle);
+}
+.card .title-sm { margin-bottom: var(--s6); }
+.card p { color: var(--ink-muted); }
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s48);
+  margin-top: var(--s36);
+}
+.columns > div { max-width: var(--reading); }
+.columns .title { margin-bottom: var(--s6); }
+
+.themes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 288px));
+  gap: var(--s24);
+  margin-top: var(--s36);
+}
+
+/* --- The inverted block (DL-17): once on the page, colours switched. --- */
+
+.inverted {
+  --surface: #2e1d38;
+  --surface-raised: #3c2b45;
+  --ink: #f1ecef;
+  --ink-muted: #c2bac3;
+  --accent-text: #f1ecef;
+  --line: #8c8090;
+  --line-subtle: #55465d;
+  --focus: #f1ecef;
+  padding: var(--s24);
+  background: var(--surface);
+  color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  .inverted {
+    --surface: #f1ecef;
+    --surface-raised: #ffffff;
+    --ink: #2e1d38;
+    --ink-muted: #594b60;
+    --accent-text: #7a2740;
+    --line: #74687a;
+    --line-subtle: #c6bec7;
+    --focus: #7a2740;
+  }
+}
+.inverted-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s12);
+  margin-bottom: var(--s18);
+}
+.inverted .status { color: var(--ink); }
+.help-lines {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s24) var(--s48);
+  margin-top: var(--s24);
+}
+.help-lines li { border-top: 1px solid var(--line-subtle); padding-top: var(--s12); }
+.help-lines li > .fact:first-child { display: block; font-size: 24px; line-height: 30px; }
+.help-lines a { color: var(--ink); text-decoration: none; }
+.help-lines a:hover { text-decoration: underline; }
+
+/* --- Footer --- */
+
+.site-footer { padding: var(--s48) 0 var(--s24); border-top: 1px solid var(--line-subtle); }
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s24) var(--s48);
+}
+.wordmark { width: 144px; height: 144px; }
+.site-footer .note { max-width: var(--reading); }
+.site-footer .note + .note { margin-top: var(--s6); }
+
+/* --- Leave now: pinned bottom-right, the one control with a stone. --- */
+
+.leave-now {
+  position: fixed;
+  right: var(--s24);
+  bottom: var(--s24);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--s18);
+  min-height: 60px;
+  padding: 0 var(--s24);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  box-shadow: 0 6px 0 var(--shadow);
+  color: var(--ink);
+  font: 600 16px/24px var(--sans);
+  text-decoration: none;
+}
+.leave-now:hover { border-color: var(--ink); }
+
+/* --- Small screens --- */
+
+@media (max-width: 899px) {
+  .hero { padding-top: var(--s48); }
+  .hero-grid, .feature, .columns { grid-template-columns: minmax(0, 1fr); }
+  .hero-shots, .feature-shots, .feature-flip .feature-shots { justify-content: start; }
+  .feature-flip .feature-copy { order: 0; }
+  .cards { grid-template-columns: minmax(0, 1fr); }
+  .help-lines { grid-template-columns: minmax(0, 1fr); }
+}

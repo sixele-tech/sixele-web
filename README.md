@@ -1,10 +1,12 @@
 # The Sixele website
 
-This repository holds the public site, the marketing screenshot library and the tooling that captures it. It expects the app checked out beside it at `../sixele-app` (or set `SIXELE_APP_DIR`), because the screenshots are rendered by the app's own test suite and the fonts, brand marks and icons are copied from the app.
+This repository holds the public site at [sixele.co.za](https://sixele.co.za) and the marketing screenshot library. It expects the app checked out beside it at `../sixele-app` (or set `SIXELE_APP_DIR`), because the fonts, brand marks and pebble icons are copied from the app.
 
-One static page about Sixele, built from the same design system as the app.
-No build step, no framework, nothing loaded from anyone else: open it with
-any static server.
+Four static pages built from the same design system as the app, following the
+[design canvas](https://claude.ai/artifact/NNCiyxcZAGDj8XjpeZsgF3): a landing
+page that asks who you are here for, then one page each for her, for someone
+who loves her, and for donors. No build step, no framework, nothing loaded
+from anyone else: open it with any static server.
 
 ```sh
 python3 -m http.server 8765   # then http://localhost:8765
@@ -12,78 +14,69 @@ python3 -m http.server 8765   # then http://localhost:8765
 
 | File | What it is |
 | --- | --- |
-| `index.html` | The page. All the words are here. |
+| `index.html` | The landing page: who are you here for, and why this app wishes it did not exist. |
+| `myself.html` | 1 · For myself: keep witness. |
+| `someone-i-love.html` | 2 · For someone I love: keep safe. |
+| `donors.html` | 3 · For donors: tech for GBV, the law, and what funding pays for. |
+| `404.html` | What GitHub Pages serves for an address that does not exist. |
 | `styles.css` | The design system for the web: the tokens from `lib/theme/` and the rules of `openspec/specs/design-language/spec.md`. |
-| `site.js` | **Leave now** only. The page works without it. |
-| `sync_assets.sh` | Copies screenshots, fonts, brand marks and pebble icons in from the app. |
-| `screenshots/`, `fonts/`, `brand/`, `icons/` | **Copies. Never edit these** — the next sync overwrites them. Change the source in the app and sync. |
+| `site.js` | **Leave now** only. The pages work without it. |
+| `build_site.sh` | Assembles `_site/` from an explicit list of files and checks every local link resolves. The deploy runs it. |
+| `sync_assets.sh` | Copies fonts, brand marks and pebble icons in from the app, then runs the build check. |
+| `fonts/`, `brand/`, `icons/` | **Copies. Never edit these** — the next sync overwrites them. Change the source in the app and sync. |
+| `marketing_screenshots/` | The screenshot library, for marketing material. **Never published**: `build_site.sh` does not copy it. |
+| `CNAME` | The custom domain for GitHub Pages. |
 
-## Updating the screenshots
+## Publishing
 
-The page shows files from the screenshot library by name
-(`screenshots/dashboard.png` is `marketing_screenshots/latest/dashboard.png`),
-so a fresh capture replaces every picture with no edit to the page:
+Every push to `main` runs `.github/workflows/deploy.yml`, which runs
+`build_site.sh` and deploys `_site/` to GitHub Pages at `sixele.co.za`. Pull
+requests run the same build check. A page that links to a file that would not
+be published fails the build, so a broken link never goes live.
 
-```sh
-./capture_marketing_shots.sh   # captures, archives the old set, then syncs the website
-```
+The things only an account owner can set: the Pages source on the repository
+(Settings → Pages → Source: GitHub Actions) and the DNS records at the
+registrar (four `A` records on `@` to GitHub Pages, a `CNAME` on `www` to
+`sixele-tech.github.io`). They are written out in Linear (SIX-144).
 
-To sync without recapturing — after changing a font, a mark or an icon, say:
+## The words
 
-```sh
-./sync_assets.sh
-```
+The rules every page follows, from SIX-98 and WC-09:
 
-The sync also checks that every screenshot `index.html` asks for exists in the
-library, and fails with the name of any that doesn't — so renaming or removing
-a capture in `test/screenshots_test.dart` can't quietly leave a hole in the
-page.
-
-### Showing a different part of a screenshot
-
-Library screenshots are full-length scrolls; the page shows one phone's worth
-(390 × 844) through a window. `--shot-y` picks which part: `0%` is the top of
-the screen (the default), `100%` the bottom.
-
-```html
-<div class="shot-window" style="--shot-y: 32%"><img src="screenshots/dashboard.png" alt="…"></div>
-```
-
-The same file can appear twice with different values, as `report.png` and
-`guardian_alert.png` do. If a recapture changes a screen's length, the five
-windows that set `--shot-y` are the ones to glance at.
-
-### Adding or swapping a screenshot
-
-1. Add the capture to `test/screenshots_test.dart` and run
-   `./capture_marketing_shots.sh` (see `marketing_screenshots/README.md`).
-2. Copy a `<figure class="shot">` block in `index.html` and change the file
-   name, the `alt` text (say what the screen shows — it is read aloud) and the
-   caption.
+- **Never describe what the app looks like on her phone.** Not the kind of app,
+  not its name, not the word "music". The pages say what it does not show (no
+  Sixele name, mark or notification) and what that cannot protect her from.
+- **Nothing false about where it stands.** Not in the stores yet; the service
+  not yet in production; Sixele-as-guardian not built. Each is said plainly.
+- **No placeholder text goes live.** Where the design canvas has a bracketed
+  placeholder, the page says what is true today and a Linear issue carries the
+  fill-in.
+- **Chan approves the words.** Claude drafts.
 
 ## The design system on the web
 
 `styles.css` follows the app's rules: square corners, the 6px grid, IBM Plex
 with one job per family (serif titles, sans voice, mono facts), the semantic
 colours in light and dark from the visitor's own setting, plum for shadows,
-48 minimum for anything tappable, notices in the flow, one inverted block on
-the page (**Help now**), and brand marks only ever placed directly on the page
-colour, sized by the stone. If a token changes in `lib/theme/`, change it in
-the `:root` block at the top of `styles.css`.
+48 minimum for anything tappable, notices in the flow, and brand marks only
+ever placed directly on the page colour. If a token changes in `lib/theme/`,
+change it in the `:root` block at the top of `styles.css`.
 
 Two things differ from an app screen, on purpose: the page is two reading
-columns wide (1152) rather than one, and screenshots sit in a window with a
-plum offset shadow so they read as pictures of a screen rather than as part
-of the page.
+columns wide (1104) rather than one, and **Leave now** sits in the sticky
+header rather than pinned bottom-right, as the design canvas has it.
 
-## Before publishing
+## Before publishing — what is still open
 
-- **Two screenshots say what the app is disguised as** (`check_on_me.png` and
-  `signup_touch.png` mention a notification "that looks like a music app's").
-  The page's own words don't. Decide whether a public page should; if not,
-  swap those two pictures or change their `--shot-y`.
-- There is no contact address on the page yet.
+Each of these is a Linear issue; the pages are honest about them meanwhile.
+
+- There is no contact address on the site yet (SIX-145, waiting on SIX-86).
+- The donors page has no figures: no total, no cost per woman, no amount per
+  line (SIX-146, waiting on the budget).
+- The law and ethics section on the donors page has not been checked by an
+  attorney (SIX-147).
+- No privacy policy, PAIA manual or store listing to link yet (SIX-148).
 - The helpline numbers are the ones in `lib/data/questions.dart` (`helpLines`)
-  and need the same practitioner check as the app's.
+  and need the same practitioner check as the app's (SIX-130).
 - **Leave now** goes to a weather search. It can't clear browser history; the
-  notice at the top of the page says so.
+  footer says so.

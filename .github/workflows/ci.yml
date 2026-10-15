@@ -1,0 +1,14 @@
+name: CI
+
+# On every pull request: the site must assemble and every link in it resolve.
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    name: build the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./build_site.sh

@@ -4,369 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sixele</title>
-  <meta name="description" content="Sixele is an app for women in South Africa: a missing-persons file about herself, made while she is safe, and a sealed record of abuse.">
+  <meta name="description" content="Sixele is an app women in South Africa use to protect each other: a private record that cannot be changed after the fact, and people she trusts who can act on it if she cannot.">
   <meta name="referrer" content="no-referrer">
+  <link rel="canonical" href="https://sixele.co.za/">
   <link rel="icon" href="brand/app_icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!--
-  Screenshots: every <img> under screenshots/ is a file from the screenshot
-  library (marketing_screenshots/latest), copied in by ./website/sync_assets.sh.
-  File names are stable, so a new capture replaces the picture with no edit
-  here. To show a different part of a long screenshot, change --shot-y on its
-  .shot-window (0% = top of the screen, 100% = bottom). See website/README.md.
--->
-
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="#top">
-      <span class="stone stone-logo"><picture><source srcset="brand/logo_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/logo_light.jpg" alt=""></picture></span>
-      Sixele
-    </a>
-    <nav class="site-nav" aria-label="On this page">
-      <a href="#what">What it does</a>
-      <a href="#guardians">Guardians</a>
-      <a href="#protected">How it's protected</a>
-      <a href="#speaks">How it speaks</a>
-      <a href="#stands">Where it stands</a>
-      <a href="#help">Help now</a>
+    <a class="home" href="./" aria-label="Sixele home"><picture><source srcset="brand/mark_dark.jpg" media="(prefers-color-scheme: dark)"><img class="mark-60" src="brand/mark_light.jpg" alt="" width="60" height="60"></picture></a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="myself.html">For myself</a>
+      <a href="someone-i-love.html">For someone I love</a>
+      <a href="donors.html">For donors</a>
     </nav>
+    <a class="leave-now" id="leave-now" href="https://www.google.com/search?q=weather+today" rel="noreferrer noopener" aria-label="Leave now. Opens a weather search in place of this site."><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img class="mark-48" src="brand/icon_light.jpg" alt="" width="48" height="48"></picture>Leave now</a>
   </div>
 </header>
 
-<main id="top">
+<main class="page wrap">
 
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <h1 class="display">Everything they'd need to find you, gathered while you're safe.</h1>
-        <p class="reading">Sixele is an app for women in South Africa. It keeps a missing-persons file about her, written by her, and a sealed record of anything done to hurt her. On her phone it looks like something else.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#what">See what it does</a>
-          <a class="button" href="#help">Help now</a>
-        </div>
-        <div class="notice notice-attention" role="note">
-          <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 21.5 20h-19L12 3.5zM12 10v5M12 17.5v.5"/></svg>
-          <div>
-            <span class="status">This page stays in your browser's history</span>
-            <p>If someone checks your phone, open it in a private window instead. <strong>Leave now</strong>, bottom right, takes you straight to a weather search.</p>
-          </div>
-        </div>
-      </div>
-      <div class="hero-shots">
-        <figure class="shot">
-          <div class="shot-window"><img src="screenshots/dashboard.png" alt="Her safe: a greeting, a block that says 'Something happened? Write it down while it's fresh', then Check on me and the sections of her file."></div>
-        </figure>
-        <figure class="shot">
-          <div class="shot-window" style="--shot-y: 22%"><img src="screenshots/dashboard_timer.png" alt="Her safe with a Check on me timer running, showing the time she said she'd be home by." loading="lazy"></div>
-        </figure>
-      </div>
+  <section class="intro centre">
+    <picture><source srcset="brand/wordmark_dark.jpg" media="(prefers-color-scheme: dark)"><img class="wordmark" src="brand/wordmark_light.jpg" alt="Sixele" width="216" height="216"></picture>
+    <h1 class="display">An app women use to protect each other.</h1>
+    <p class="reading muted">Sixele keeps a private record that cannot be changed after the fact. It stays on her phone, and only she can open it. And it lets the people she trusts act on her record if she cannot.</p>
+  </section>
+
+  <section class="stack-36" aria-labelledby="choose">
+    <h2 id="choose" class="headline" style="text-align: center">Who are you here for?</h2>
+    <div class="card-row">
+
+      <a class="card choice" href="myself.html">
+        <picture><source srcset="icons/lock_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/lock_light.svg" alt="" width="40" height="40"></picture>
+        <span>
+          <span class="note">1</span>
+          <span class="headline">Myself</span>
+        </span>
+        <span class="choice-body">Keep witness. A private record of what is happening to you, sealed so it cannot be changed, and people to stand with you.</span>
+        <span class="choice-go">Read about keeping witness<svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="card choice" href="someone-i-love.html">
+        <picture><source srcset="icons/circle_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/circle_light.svg" alt="" width="40" height="40"></picture>
+        <span>
+          <span class="note">2</span>
+          <span class="headline">Someone I love</span>
+        </span>
+        <span class="choice-body">Keep safe. How you can be there for her if the worst happens, without watching over her.</span>
+        <span class="choice-go">Read about keeping safe<svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="card choice" href="donors.html">
+        <picture><source srcset="icons/share_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/share_light.svg" alt="" width="40" height="40"></picture>
+        <span>
+          <span class="note">3</span>
+          <span class="headline">Donors</span>
+        </span>
+        <span class="choice-body">Tech for GBV. What we are building, why it holds up in law, and what it takes to reach the first <span class="num">1,000</span> women.</span>
+        <span class="choice-go">Read the case for funding<svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+      </a>
+
     </div>
   </section>
 
-  <section class="section" id="what">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="stone stone-36"><picture><source srcset="brand/mark_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/mark_light.jpg" alt=""></picture></span>
-        <h2 class="section-title">What it does</h2>
-      </div>
-      <p class="section-lede reading">Two things, kept behind a phrase and a PIN only she knows.</p>
-
-      <div class="feature">
-        <div class="feature-copy">
-          <div class="feature-head">
-            <picture><source srcset="icons/papers_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/papers_light.svg" alt=""></picture>
-            <h3 class="headline">A missing-persons file about herself</h3>
-          </div>
-          <p>Everything police, search volunteers or her family would need to find or identify her — gathered while she is safe and calm, not pieced together later by frightened relatives.</p>
-          <p>Sign-up is six short pages, and only her name and her consent hold a page. The rest is filled in a section at a time, whenever she likes:</p>
-          <ul class="bullets">
-            <li><span class="stone stone-bullet"><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/icon_light.jpg" alt=""></picture></span>How to recognise you: build, face, marks, voice, what you wear</li>
-            <li><span class="stone stone-bullet"><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/icon_light.jpg" alt=""></picture></span>Health and teeth: medication, doctors, dentist, old injuries</li>
-            <li><span class="stone stone-bullet"><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/icon_light.jpg" alt=""></picture></span>Phone, car and travel</li>
-            <li><span class="stone stone-bullet"><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/icon_light.jpg" alt=""></picture></span>Your days and habits, and what you'd never do</li>
-            <li><span class="stone stone-bullet"><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/icon_light.jpg" alt=""></picture></span>People in your life</li>
-            <li><span class="stone stone-bullet"><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/icon_light.jpg" alt=""></picture></span>Papers and money</li>
-          </ul>
-        </div>
-        <div class="feature-shots">
-          <figure class="shot">
-            <div class="shot-window" style="--shot-y: 32%"><img src="screenshots/dashboard.png" alt="The sections of her file, each a row with a pebble icon: setting up, your guardians, how to recognise you, health and teeth, and more." loading="lazy"></div>
-            <figcaption class="note">Her file, a section at a time. Nothing counts what she has left to do.</figcaption>
-          </figure>
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/signup_touch.png" alt="A sign-up page about staying in touch, asking how often she would like to check in." loading="lazy"></div>
-            <figcaption class="note">Sign-up: staying in touch.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="feature feature-flip">
-        <div class="feature-copy">
-          <div class="feature-head">
-            <picture><source srcset="icons/evidence_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/evidence_light.svg" alt=""></picture>
-            <h3 class="headline">A sealed record of abuse</h3>
-          </div>
-          <p>Dated, fingerprinted records of anything done to hurt her, kept in a form a magistrate or prosecutor can rely on. Quick taps come first, and she can seal it from any page — a little now, more later.</p>
-          <p>Each record is sealed the moment it is saved, with a fingerprint made from everything in it and from the record sealed before it. Every photo, recording and document carries its own. Records are never edited or deleted, only added to.</p>
-          <p class="muted">This makes tampering detectable, not impossible, and it is not a legal opinion on admissibility.</p>
-        </div>
-        <div class="feature-shots">
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/record_flow.png" alt="Recording what happened: one plain instruction and quick-tap answers, with no brand marks on the screen." loading="lazy"></div>
-            <figcaption class="note">Recording what happened. One instruction, no brand.</figcaption>
-          </figure>
-          <figure class="shot">
-            <div class="shot-window" style="--shot-y: 8%"><img src="screenshots/record_detail.png" alt="A sealed record, showing the time it was sealed and its fingerprint, then her answers read back." loading="lazy"></div>
-            <figcaption class="note">A sealed record, with its time and fingerprint.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="feature">
-        <div class="feature-copy">
-          <div class="feature-head">
-            <picture><source srcset="icons/document_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/document_light.svg" alt=""></picture>
-            <h3 class="headline">One report, of what she chooses</h3>
-          </div>
-          <p>A single PDF — a missing person file, a record of abuse, or everything — made on her phone. It is the same document her guardians would receive, built from her consent.</p>
-          <p>The people helping her and her safety plan stay out of every report unless she switches them on for her own complete copy.</p>
-          <p class="muted">A report, once saved or sent, is outside her safe. The screen says so, and the file name gives nothing away.</p>
-        </div>
-        <div class="feature-shots">
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/report.png" alt="Generate a report: a choice between a missing person file, a record of abuse, or a complete file." loading="lazy"></div>
-            <figcaption class="note">Choosing what kind of report.</figcaption>
-          </figure>
-          <figure class="shot">
-            <div class="shot-window" style="--shot-y: 55%"><img src="screenshots/report.png" alt="What goes in the report: each section of her file with a tick box beside it." loading="lazy"></div>
-            <figcaption class="note">Choosing what goes in it.</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
+  <section class="band intro" aria-labelledby="why">
+    <h2 id="why" class="section-title">This app wishes it did not exist.</h2>
+    <p class="reading">We should not be telling women how to avoid danger. We need men to stop being violent. Sixele is not a solution to that. It is a response to fear, and it would rather not be needed.</p>
+    <p>Until then it does two things with care: it takes her fears seriously, and it looks after her state of mind as much as it looks after her record. It never tells her how to feel, what she should have done, or what her situation means. It asks, it keeps, and it gets out of the way.</p>
   </section>
 
-  <section class="section" id="guardians">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="stone stone-36"><picture><source srcset="brand/mark_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/mark_light.jpg" alt=""></picture></span>
-        <h2 class="section-title">Check on me, and guardians</h2>
-      </div>
-      <p class="section-lede reading">The people she trusts, asked only when they're needed.</p>
-
-      <div class="feature">
-        <div class="feature-copy">
-          <div class="feature-head">
-            <picture><source srcset="icons/timer_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/timer_light.svg" alt=""></picture>
-            <h3 class="headline">Check on me</h3>
-          </div>
-          <p>A timer for a date, a night out, a lift with someone new: a time to be home by, an optional plan, and what happens if she doesn't say she's safe.</p>
-          <p>Her guardians are asked to check on her, and after the hours she chose, two of them together can open her file. The plan is only seen if she doesn't say she's safe, and is deleted when she does.</p>
-          <p>Regular check-ins are company, not an alarm: a missed one does nothing on its own.</p>
-        </div>
-        <div class="feature-shots">
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/check_on_me.png" alt="Check on me: choosing a time to be home by." loading="lazy"></div>
-            <figcaption class="note">Setting a time to be home by.</figcaption>
-          </figure>
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/home_safe.png" alt="Are you safe? with three answers: I'm safe, I need more time, I'm not safe." loading="lazy"></div>
-            <figcaption class="note">When the time comes: one question.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="feature feature-flip">
-        <div class="feature-copy">
-          <div class="feature-head">
-            <picture><source srcset="icons/circle_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/circle_light.svg" alt=""></picture>
-            <h3 class="headline">Guardians never install anything</h3>
-          </div>
-          <p>An app on a guardian's phone is one more place the person she fears can find out. So a guardian is a phone number and a set of links. Each page opens from a message, names one guardian and one purpose, and keeps nothing on their phone.</p>
-          <p>She sends the invitation herself, on the channel she knows is safe for both of them, and its words name no app:</p>
-          <p class="quote">"I've chosen you as someone I trust with something important. When you have a quiet minute on your own, please open this."</p>
-        </div>
-        <div class="feature-shots">
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/guardians.png" alt="Your guardians: the people she has asked, and what each is allowed to do." loading="lazy"></div>
-            <figcaption class="note">Her guardians, inside her safe.</figcaption>
-          </figure>
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/guardian_invite.png" alt="A guardian's invitation page: who is asking, what she is asking, and what it is not." loading="lazy"></div>
-            <figcaption class="note">What a guardian sees: the invitation.</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div class="feature">
-        <div class="feature-copy">
-          <div class="feature-head">
-            <picture><source srcset="icons/lock_dark.svg" media="(prefers-color-scheme: dark)"><img class="pebble" src="icons/lock_light.svg" alt=""></picture>
-            <h3 class="headline">One guardian can't open her file alone</h3>
-          </div>
-          <p>Two of the guardians she allowed to decide must each say they can't reach her. Opening Sixele and saying she's safe stops it at any point.</p>
-          <p>If her file is opened, a guardian confirms who they are first: her file holds her ID, her address and her photos, so we check who is reading.</p>
-        </div>
-        <div class="feature-shots">
-          <figure class="shot">
-            <div class="shot-window"><img src="screenshots/guardian_alert.png" alt="A guardian's alert page: she hasn't said she's safe, and what she planned for the evening." loading="lazy"></div>
-            <figcaption class="note">What a guardian sees: an alert.</figcaption>
-          </figure>
-          <figure class="shot">
-            <div class="shot-window" style="--shot-y: 60%"><img src="screenshots/guardian_alert.png" alt="The alert page further down: 'What did you find?', her other guardians, and how many have said they can't reach her." loading="lazy"></div>
-            <figcaption class="note">Deciding together.</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="protected">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="stone stone-36"><picture><source srcset="brand/mark_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/mark_light.jpg" alt=""></picture></span>
-        <h2 class="section-title">How it's protected</h2>
-      </div>
-      <p class="section-lede reading">It is built for a phone someone else may pick up.</p>
-
-      <div class="cards">
-        <div class="card">
-          <h3 class="title-sm">It looks like something else</h3>
-          <p>On her phone the app has another name and a working front. Her safe opens only with her phrase and her PIN.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">Leave now, on every screen</h3>
-          <p>Pinned bottom-right throughout her safe: one tap back to the front, no confirmation.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">Leaving the app locks it</h3>
-          <p>Switching away closes every screen of her safe. A record she was part-way through is kept for when she comes back.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">Nothing in the app switcher</h3>
-          <p>Her safe never shows in the recent-apps view, and on Android screenshots of it are blocked.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">No backups, no cloud copies</h3>
-          <p>Nothing goes to phone backups, device transfer or a cloud keychain, where someone with her account could find it.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">Guessing is slowed, never punished</h3>
-          <p>After five wrong PINs there is a wait, and it doubles up to an hour. Nothing is ever wiped: that would let someone destroy her evidence by guessing on purpose.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">She practises getting back in</h3>
-          <p>There is no way to reset a forgotten phrase or PIN, so the first time she uses them is never the first time she needs them.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">The keyboard never learns her phrase</h3>
-          <p>Learning, suggestions and autocorrect are off wherever she types it.</p>
-        </div>
-        <div class="card">
-          <h3 class="title-sm">Evidence is fingerprinted as it's added</h3>
-          <p>Photos, recordings and documents are copied into the app's own storage and fingerprinted there, the moment she adds them.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="speaks">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="stone stone-36"><picture><source srcset="brand/mark_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/mark_light.jpg" alt=""></picture></span>
-        <h2 class="section-title">How it speaks</h2>
-      </div>
-      <p class="section-lede reading">The design system was written for small cracked screens, large text, and someone who may be frightened.</p>
-
-      <div class="columns">
-        <div>
-          <h3 class="title">How far she has got is hers to know</h3>
-          <p class="muted">No progress bars, step counts, word counts or anything "left to do". An empty section says only: "You can add to this at any time."</p>
-        </div>
-        <div>
-          <h3 class="title">She is never asked to rate her own danger</h3>
-          <p class="muted">No rating scales anywhere. Every question about abuse offers "Not sure" and "I'd rather not say".</p>
-        </div>
-        <div>
-          <h3 class="title">Frightened screens carry one instruction</h3>
-          <p class="muted">Recording what happened, and "Are you safe?", drop the brand entirely: no serif, no icons, one plain instruction.</p>
-        </div>
-        <div>
-          <h3 class="title">Colour never carries meaning alone</h3>
-          <p class="muted">A word and an icon always say it too. Status words are in sentence case, because capitals read as shouting.</p>
-        </div>
-      </div>
-
-      <div class="themes">
-        <figure class="shot">
-          <div class="shot-window"><img src="screenshots/dashboard.png" alt="Her safe in the light theme: a mist page with plum text." loading="lazy"></div>
-          <figcaption class="note">Light: mist page, plum ink.</figcaption>
-        </figure>
-        <figure class="shot">
-          <div class="shot-window"><img src="screenshots/dashboard_dark.png" alt="Her safe in the dark theme: a plum page with mist text." loading="lazy"></div>
-          <figcaption class="note">Dark: plum page, mist ink. Never black.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="stands">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="stone stone-36"><picture><source srcset="brand/mark_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/mark_light.jpg" alt=""></picture></span>
-        <h2 class="section-title">Where it stands</h2>
-      </div>
-      <p class="section-lede reading">Sixele is being built. It is not in any app store, and nobody should trust it with anything that matters yet.</p>
-
-      <div class="columns">
-        <div class="notice">
-          <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v.5"/></svg>
-          <div>
-            <span class="status">Not connected yet</span>
-            <p>Alerts to guardians, Check on me monitoring and the locked copy of her file need a service that doesn't exist yet. The screens say so, as the screenshots here show.</p>
-          </div>
-        </div>
-        <div class="notice">
-          <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v.5"/></svg>
-          <div>
-            <span class="status">Still to do before anyone uses it</span>
-            <p>Encrypting her file and records on the phone comes first. The South African facts in the helper text are to be confirmed by a practitioner, and the consent wording reviewed by a lawyer against POPIA.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="help">
-    <div class="wrap">
-      <div class="inverted">
-        <div class="inverted-head">
-          <span class="stone"><picture><source srcset="brand/mark_light.jpg" media="(prefers-color-scheme: dark)"><img src="brand/mark_dark.jpg" alt=""></picture></span>
-          <span class="status">Help now</span>
-        </div>
-        <h2 class="headline">In danger right now? Call the police.</h2>
-        <ul class="help-lines">
-          <li>
-            <a class="fact" href="tel:10111">10111</a>
-            Police. Or <a class="fact" href="tel:112">112</a> from any cellphone. It's free.
-          </li>
-          <li>
-            <a class="fact" href="tel:0800428428">0800 428 428</a>
-            GBV Command Centre, free, 24 hours. If you can't talk, dial <span class="fact">*120*7867#</span> and they'll call you back.
-          </li>
-          <li>
-            <a class="fact" href="tel:10177">10177</a>
-            Ambulance.
-          </li>
-          <li>
-            <a class="fact" href="tel:116">116</a>
-            Childline, for anyone under 18.
-          </li>
-        </ul>
-      </div>
+  <section class="notice" role="note" aria-label="If you are in danger now">
+    <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L22 20H2Z"/><path d="M12 10v4"/><path d="M12 16.5v1"/></svg>
+    <div>
+      <span class="status">If you are in danger now</span>
+      <span>Call the police on <a class="fact" href="tel:10111">10111</a>, or the GBV Command Centre on <a class="fact" href="tel:0800428428">0800 428 428</a>. The Command Centre answers day and night.</span>
     </div>
   </section>
 
@@ -374,17 +87,13 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <picture><source srcset="brand/wordmark_dark.jpg" media="(prefers-color-scheme: dark)"><img class="wordmark" src="brand/wordmark_light.jpg" alt="Sixele" loading="lazy"></picture>
     <div>
-      <p class="note">Set in IBM Plex, which ships with this site under the Open Font License. This site calls no font server, loads nothing from anyone else and keeps no analytics.</p>
+      <p>Safer browsing: this site will show in your browser history. A private or incognito window keeps it out. Leave now opens a weather search in place of this page.</p>
+      <p>Set in IBM Plex, which ships with this site under the Open Font License. This site calls no font server, loads nothing from anyone else and keeps no analytics. It is in English only for now.</p>
     </div>
+    <p class="who">Sixele</p>
   </div>
 </footer>
-
-<a class="leave-now" id="leave-now" href="https://www.google.com/search?q=weather" rel="noreferrer noopener">
-  <span class="stone stone-bullet"><picture><source srcset="brand/icon_dark.jpg" media="(prefers-color-scheme: dark)"><img src="brand/icon_light.jpg" alt=""></picture></span>
-  Leave now
-</a>
 
 <script src="site.js"></script>
 </body>

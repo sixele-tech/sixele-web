@@ -3,7 +3,8 @@ name: Deploy
 # Publishes the site to GitHub Pages on every push to main. The site is
 # static: build_site.sh only copies the published files into _site and checks
 # that every local reference resolves, so a broken link fails the deploy
-# instead of going live.
+# instead of going live. tool/check_names.sh runs first, so a founder's name
+# or the disguise name never goes live either.
 
 on:
   push:
@@ -25,6 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: no founder's name and no disguise name
+        run: ./tool/check_names.sh
+        env:
+          FOUNDER_NAMES: ${{ secrets.FOUNDER_NAMES }}
+          DISGUISE_NAME_CHECK: ${{ secrets.DISGUISE_NAME_CHECK }}
       - run: ./build_site.sh
       - uses: actions/upload-pages-artifact@v3
         with:

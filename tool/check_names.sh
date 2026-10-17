@@ -3,15 +3,17 @@
 # and its contents, binary files (image metadata) included:
 #
 #   FOUNDER_NAMES        the founders' names, separated by commas or new
-#                        lines. None may appear as a word (a letter on either
-#                        side makes it another word; a digit or _ does not):
+#                        lines. None may appear as a word (an ASCII letter
+#                        on either side makes it another word; a digit, _ or
+#                        any other character or byte does not):
 #                        the founder is named in public only where the law
 #                        requires, and the site is not such a place.
 #   DISGUISE_NAME_CHECK  the names the app goes by on her phone in a release,
 #                        separated the same way. None may appear in any form.
 #
-# Both match in any case, non-ASCII letters included, with the words apart,
-# run together, or joined by _ - . or /, across a line break too.
+# Both match in any case, with the words apart, run together, or joined by
+# _ - . or /, across a line break too. Non-ASCII letters fold case in UTF-8
+# files; a name in a latin1 file is found in the case given (see search()).
 #
 # The names are never written in this repository: CI supplies them from
 # secrets. A hit is reported without the name: a file by path and line, or,
@@ -24,7 +26,7 @@
 #   FOUNDER_NAMES='…' DISGUISE_NAME_CHECK='…' tool/check_names.sh
 
 set -euo pipefail
-export LC_ALL=C.UTF-8   # case-folding and letter classes for non-ASCII names
+export LC_ALL=C.UTF-8   # each grep sets its own locale; see search()
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
@@ -42,26 +44,62 @@ die_on_error() {
   [ "$1" -le 1 ] || { echo "FAIL: grep failed (status $1)." >&2; exit 2; }
 }
 
+# One grep in locale $1, the rest its arguments; an error stops the check.
+g() {
+  local loc="$1" rc=0
+  shift
+  LC_ALL="$loc" grep "$@" || rc=$?
+  die_on_error "$rc"
+  return "$rc"
+}
+
+# Each search is run up to three times, and a hit in any run counts:
+#   - in UTF-8, so non-ASCII letters fold case and count as letters;
+#   - in the C locale, where every byte that is not an ASCII letter counts as
+#     a non-letter, so a name beside a byte that is not valid UTF-8 (binary
+#     data, a latin1 symbol in image metadata) is still caught;
+#   - in the C locale with the names in latin1, when they differ, so a name
+#     with non-ASCII letters is caught in a latin1-encoded file (its
+#     non-ASCII letters then match only in the case given).
+# The patterns are in the arrays PATTERNS_UTF8 and PATTERNS_LATIN1.
+search() {  # search <grep options> <file>, or <grep options> - <text>
+  local opts="$1" target="$2" text="${3:-}"
+  g C.UTF-8 "$opts" "${PATTERNS_UTF8[@]}" -- "$target" <<< "$text" && return 0
+  g C "$opts" "${PATTERNS_UTF8[@]}" -- "$target" <<< "$text" && return 0
+  if [ "${#PATTERNS_LATIN1[@]}" -gt 0 ]; then
+    g C "$opts" "${PATTERNS_LATIN1[@]}" -- "$target" <<< "$text" && return 0
+  fi
+  return 1
+}
+
+# Prints the numbers of the lines of file $1 that any run matches.
+matching_lines() {
+  local opts=(-naiE)
+  {
+    g C.UTF-8 "${opts[@]}" "${PATTERNS_UTF8[@]}" -- "$1" || true
+    g C "${opts[@]}" "${PATTERNS_UTF8[@]}" -- "$1" || true
+    if [ "${#PATTERNS_LATIN1[@]}" -gt 0 ]; then
+      g C "${opts[@]}" "${PATTERNS_LATIN1[@]}" -- "$1" || true
+    fi
+  } | LC_ALL=C cut -d: -f1 | sort -un
+}
+
 # Prints one line per tracked file whose path or contents hold a match. Every
 # path is checked first: a path that holds the name is never printed, only its
 # number. Contents are read whole (-z, so a name split across lines is
-# caught) and byte for byte (-a). The arguments are the -e patterns.
+# caught) and byte for byte (-a).
 find_in_tracked() {
   local i=0 path lines line rc
   for path in "${TRACKED[@]}"; do
     i=$((i + 1))
-    rc=0; grep -qzaiE "$@" <<< "$path" || rc=$?
-    die_on_error "$rc"
-    if [ "$rc" = 0 ]; then
+    if search -qzaiE - "$path"; then
       echo "tracked file $i (its path holds the name)"
       continue
     fi
     [ -f "$path" ] || continue
-    rc=0; grep -qzaiE "$@" -- "$path" || rc=$?
-    die_on_error "$rc"
-    [ "$rc" = 0 ] || continue
-    rc=0; lines="$(grep -naiE "$@" -- "$path" | cut -d: -f1)" || rc=$?
-    die_on_error "$rc"
+    search -qzaiE "$path" || continue
+    rc=0; lines="$(matching_lines "$path")" || rc=$?
+    [ "$rc" = 0 ] || exit 2
     if [ -n "$lines" ]; then
       while IFS= read -r line; do echo "$path:$line"; done <<< "$lines"
     else
@@ -97,19 +135,26 @@ check() {
     fi
     return
   fi
-  local args=() name names
+  local name names pattern latin1
+  PATTERNS_UTF8=()
+  PATTERNS_LATIN1=()
   IFS=',' read -ra names <<< "$raw"
   for name in "${names[@]}"; do
     name="$(printf '%s' "$name" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')"
     [ -z "$name" ] && continue
     if [ "$mode" = word ]; then
-      args+=(-e "(^|[^[:alpha:]])$(loose_pattern "$name")($|[^[:alpha:]])")
+      pattern="(^|[^[:alpha:]])$(loose_pattern "$name")($|[^[:alpha:]])"
     else
-      args+=(-e "$(loose_pattern "$name")")
+      pattern="$(loose_pattern "$name")"
+    fi
+    PATTERNS_UTF8+=(-e "$pattern")
+    if latin1="$(printf '%s' "$pattern" | iconv -f UTF-8 -t LATIN1 2> /dev/null)" \
+        && [ "$latin1" != "$pattern" ]; then
+      PATTERNS_LATIN1+=(-e "$latin1")
     fi
   done
   local found
-  found="$(find_in_tracked "${args[@]}")" || exit 2
+  found="$(find_in_tracked)" || exit 2
   if [ -n "$found" ]; then
     echo "FAIL: $what appears in tracked files (the name is not shown):"
     printf '%s\n' "$found" | sed 's/^/  /'

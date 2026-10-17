@@ -1,6 +1,7 @@
 name: CI
 
-# On every pull request: the site must assemble and every link in it resolve.
+# On every pull request: the site must assemble and every link in it resolve,
+# and no tracked file may hold a founder's name or the disguise name.
 
 on:
   pull_request:
@@ -12,3 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ./build_site.sh
+      - name: no founder's name and no disguise name
+        run: ./tool/check_names.sh
+        env:
+          FOUNDER_NAMES: ${{ secrets.FOUNDER_NAMES }}
+          DISGUISE_NAME_CHECK: ${{ secrets.DISGUISE_NAME_CHECK }}

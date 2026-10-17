@@ -16,6 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ./build_site.sh
+      - name: the name check's own tests, with made-up names
+        run: ./tool/check_names_test.sh
       - name: no founder's name and no disguise name
         run: ./tool/check_names.sh
         env:

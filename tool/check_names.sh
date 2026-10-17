@@ -1,5 +1,6 @@
 #!/bin/bash
-# The two standing rules (SIX-168), checked against every tracked text file:
+# The two standing rules (SIX-168), checked against every tracked file,
+# binary files (image metadata) included:
 #
 #   FOUNDER_NAMES        comma-separated names of the founders. None may appear
 #                        as a word: the founder is named in public only where
@@ -20,13 +21,30 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+git rev-parse --git-dir > /dev/null   # the check reads git's list of files
 
 status=0
 
-# Prints file:line for every tracked text file that matches; grep reads the
-# patterns from its arguments, so no name is written to disk.
+# Prints path:line for every tracked file that holds a match, or the path
+# alone when the match runs across a line break. Every file is read, binary
+# ones included (-a), and each file is first searched whole (-z), so a name
+# split across lines is caught. grep reads the patterns from its arguments, so
+# no name is written to disk. A grep error (status 2) stops the check.
 find_in_tracked() {
-  git ls-files -z | xargs -0 grep -nIiE "$@" -- 2>/dev/null | cut -d: -f1,2 || true
+  local path rc lines line
+  while IFS= read -r -d '' path; do
+    [ -f "$path" ] || continue
+    rc=0; grep -qaziE "$@" -- "$path" || rc=$?
+    [ "$rc" = 1 ] && continue
+    [ "$rc" = 0 ] || { echo "grep failed on $path" >&2; exit 2; }
+    rc=0; lines="$(grep -naiE "$@" -- "$path" | cut -d: -f1)" || rc=$?
+    [ "$rc" -le 1 ] || { echo "grep failed on $path" >&2; exit 2; }
+    if [ -n "$lines" ]; then
+      while IFS= read -r line; do echo "$path:$line"; done <<< "$lines"
+    else
+      echo "$path (across a line break)"
+    fi
+  done < <(git ls-files -z)
 }
 
 # Turns one name into an extended regex: each word escaped, the words joined by
@@ -64,7 +82,7 @@ check() {
     fi
   done
   local found
-  found="$(find_in_tracked "${args[@]}")"
+  found="$(find_in_tracked "${args[@]}")" || exit 2
   if [ -n "$found" ]; then
     echo "FAIL: $what appears in tracked files (the name is not shown):"
     printf '%s\n' "$found" | sed 's/^/  /'

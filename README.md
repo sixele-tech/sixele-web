@@ -19,13 +19,16 @@ every change, here and in the app and the service:
   registration and the PAIA manual, the CIPC records) and on the store
   listing, where the store prints it itself.
 
-`tool/check_names.sh` checks both on every pull request and every push to
-`main`. It reads the names from the `FOUNDER_NAMES` and `DISGUISE_NAME_CHECK`
-secrets (comma-separated), never from a file, and fails on any tracked file
-that holds one — images included, since their metadata can carry an author's
-name, and a name split across a line break — naming the file and line but not
-the name. Strip the metadata from any picture before it is added. Run without them it skips each check and
-says so; in CI a missing secret fails the build.
+`tool/check_names.sh` checks both on every pull request, on every push to
+`main`, and in the deploy before anything is published. It reads the names
+from the `FOUNDER_NAMES` and `DISGUISE_NAME_CHECK` secrets (separated by
+commas or new lines), never from a file, and fails on any tracked file that
+holds one in its path or its contents — images included, since their
+metadata can carry an author's name, and a name split across a line break.
+It names the file and line but never the name; a file whose path holds the
+name is given only by its number in `git ls-files`. Strip the metadata from
+any picture before it is added. Run without the names it skips each check
+and says so; in CI a missing secret fails the build.
 
 Four static pages built from the same design system as the app, following the
 [design canvas](https://claude.ai/artifact/NNCiyxcZAGDj8XjpeZsgF3): a landing
@@ -47,7 +50,7 @@ python3 -m http.server 8765   # then http://localhost:8765
 | `styles.css` | The design system for the web: the tokens from `lib/theme/` and the rules of `openspec/specs/design-language/spec.md`. |
 | `site.js` | **Leave now** only. The pages work without it. |
 | `build_site.sh` | Assembles `_site/` from an explicit list of files and checks every local link resolves. The deploy runs it. |
-| `tool/check_names.sh` | Fails if a founder's name or the disguise name, supplied by CI secrets, is in any tracked file, image metadata included. CI runs it. |
+| `tool/check_names.sh` | Fails if a founder's name or the disguise name, supplied by CI secrets, is in any tracked file's path or contents, image metadata included. CI and the deploy run it. |
 | `sync_assets.sh` | Copies fonts, brand marks and pebble icons in from the app, then runs the build check. |
 | `fonts/`, `brand/`, `icons/` | **Copies. Never edit these** — the next sync overwrites them. Change the source in the app and sync. |
 | `marketing_screenshots/` | The screenshot library, for marketing material. **Never published**: `build_site.sh` does not copy it. |

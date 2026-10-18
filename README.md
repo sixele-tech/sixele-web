@@ -102,7 +102,6 @@ header rather than pinned bottom-right, as the design canvas has it.
 
 Each of these is a Linear issue; the pages are honest about them meanwhile.
 
-- There is no contact address on the site yet (SIX-145, waiting on SIX-86).
 - The donors page has no figures: no total, no cost per woman, no amount per
   line (SIX-146, waiting on the budget).
 - The law and ethics section on the donors page has not been checked by an

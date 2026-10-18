@@ -487,3 +487,5 @@ tfoot tr { border-top: 2px solid var(--line); }
 .site-footer .wrap > * { flex: 1 1 360px; max-width: var(--reading); }
 .site-footer p + p { margin-top: var(--s12); }
 .site-footer .who { flex: 0 1 auto; }
+/* Contact links are tap targets: 48 minimum, in the footer and inline in text. */
+.site-footer p a, a.contact-link { display: inline-flex; align-items: center; min-height: 48px; }

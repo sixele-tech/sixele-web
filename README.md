@@ -19,6 +19,14 @@ every change, here and in the app and the service:
   registration and the PAIA manual, the CIPC records) and on the store
   listing, where the store prints it itself.
 
+  **One exception, the owner's choice on 27 October 2026:** the donors page
+  speaks as a person in two places, the funding section, which is a letter
+  from the founder, and the closing invitation to write. Donors should know
+  a person is behind Sixele who wants to talk to them and hear from them.
+  The letter is signed with initials only, so it adds as little as it can to
+  the path from the store listing's name to Sixele; the name itself still
+  never appears, and every other page still speaks as Sixele.
+
 `tool/check_names.sh` checks both on every pull request, on every push to
 `main`, and in the deploy before anything is published. It reads the names
 from the `FOUNDER_NAMES` and `DISGUISE_NAME_CHECK` secrets (separated by

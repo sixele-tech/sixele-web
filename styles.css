@@ -472,6 +472,7 @@ tbody tr, tfoot tr { border-top: 1px solid var(--line-subtle); }
 tfoot tr { border-top: 2px solid var(--line); }
 .amount { text-align: right; font-family: var(--mono); white-space: nowrap; }
 .awarded { display: inline-flex; align-items: center; gap: var(--s6); white-space: nowrap; }
+tr.stage th { padding: var(--s12) var(--s24); font: 600 14px/18px var(--sans); background: var(--surface-well); }
 
 /* --- Charts (DL-08, DL-09) ---
  * One mark is the point and wears claret; the rest are the line grey, and an

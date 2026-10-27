@@ -473,6 +473,50 @@ tfoot tr { border-top: 2px solid var(--line); }
 .amount { text-align: right; font-family: var(--mono); white-space: nowrap; }
 .awarded { display: inline-flex; align-items: center; gap: var(--s6); white-space: nowrap; }
 
+/* --- Charts (DL-08, DL-09) ---
+ * One mark is the point and wears claret; the rest are the line grey, and an
+ * empty part is the well. In dark, claret on plum is too faint to read, so the
+ * mark is mist, as an accent's edge and text already are. Square ends like
+ * every other corner, a 2px gap of card colour between touching marks, and
+ * every value written beside its mark, never colour alone. */
+
+:root {
+  --chart-mark: var(--accent);
+  --chart-rest: var(--line);
+  --chart-empty: var(--surface-well);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --chart-mark: var(--ink); }
+}
+
+.chart { margin-top: var(--s12); }
+
+.waffle { display: block; width: 100%; height: auto; }
+.waffle .mark { fill: var(--chart-mark); }
+.waffle .empty { fill: var(--chart-empty); }
+
+.meter { display: flex; height: 12px; background: var(--chart-empty); }
+.meter > span { background: var(--chart-mark); border-right: 2px solid var(--surface-raised); }
+.meter-key { display: flex; justify-content: space-between; gap: var(--s12); margin-top: var(--s6); }
+
+.columns { display: flex; align-items: flex-end; }
+.columns li { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--s6); }
+.columns .col { width: 24px; height: calc(var(--v) * 2px); background: var(--chart-rest); }
+.columns .col + span {
+  align-self: stretch;
+  margin-top: calc(-1 * var(--s6));
+  padding-top: var(--s6);
+  border-top: 1px solid var(--line-subtle);
+  text-align: center;
+}
+.columns .is-mark .col { background: var(--chart-mark); }
+
+.bars { display: flex; flex-direction: column; gap: var(--s12); }
+.bars li { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--s12); row-gap: var(--s6); }
+.bars li > .small { flex-basis: 100%; }
+.bars .bar { height: 12px; width: calc(var(--v) * 0.8%); background: var(--chart-rest); }
+.bars .is-mark .bar { background: var(--chart-mark); }
+
 /* --- Footer --- */
 
 .site-footer { border-top: 1px solid var(--line-subtle); }
@@ -488,5 +532,5 @@ tfoot tr { border-top: 2px solid var(--line); }
 .site-footer .wrap > * { flex: 1 1 360px; max-width: var(--reading); }
 .site-footer p + p { margin-top: var(--s12); }
 .site-footer .who { flex: 0 1 auto; }
-/* Contact links are tap targets: 48 minimum, in the footer and inline in text. */
-.site-footer p a, a.contact-link { display: inline-flex; align-items: center; min-height: 48px; }
+/* Contact and source links are tap targets: 48 minimum, in the footer and inline in text. */
+.site-footer p a, a.contact-link, a.source-link { display: inline-flex; align-items: center; min-height: 48px; }
